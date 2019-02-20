@@ -4,22 +4,21 @@ if((Get-WmiObject -Class Win32_Product | Where-Object Name -like "*Colemak*").Co
 {
     Write-Debug "Installing Colemak"
     Write-Verbose "Installing git-lfs and restoring zips"
-    scoop install git-lfs; scoop update git-lfs
-    git lfs install
-    git lfs checkout
+    Start-Process scoop.cmd -ArgumentList "install git-lfs" -Wait -PassThru -NoNewWindow
+    Start-Process scoop.cmd -ArgumentList "update git-lfs" -Wait -PassThru -NoNewWindow
+    Start-Process git-lfs.exe -ArgumentList "install" -Wait -PassThru
+    Start-Process git-lfs.exe -ArgumentList "checkout" -Wait -PassThru
 
     Write-Verbose "Creating unzip directory"
-    $lib = Join-Path $PSScriptRoot ".." "lib"
-    $unzip = Join-Path $lib "temp" ([System.IO.Path]::GetTempFileName())
-    New-Item $unzip -ItemType Directory
+    $lib = [System.IO.Path]::Combine($PSScriptRoot, "..", "lib")
+    $unzip = [System.IO.Path]::Combine($lib, "temp", [System.IO.Path]::GetRandomFileName())
 
     Write-Verbose "Unzipping using System.IO"
-    Add-Type -AssemblyName System.IO.Compression.FileSystem
-    [System.IO.Compression.ZipFile]::ExtractToDirectory((Join-Path $lib "Colemak-1.1-Caps-Lock-Unchanged.zip"), $unzip)
+    Expand-Archive -Path ([System.IO.Path]::Combine($lib, "Colemak-1.1-Caps-Lock-Unchanged.zip")) -DestinationPath $unzip
 
     Write-Verbose "Running installer"
-    $msi = Join-Path $unzip "Colemak2_amd64.msi"
-    Start-Process msiexec -ArgumentList "/i $msi /qn /norestart" -Wait -PassThru
+    $msi = Resolve-Path ([System.IO.Path]::Combine($unzip, "Colemak2_amd64.msi"))
+    Start-Process msiexec.exe -ArgumentList "/package $msi /qn" -Wait -PassThru -Verb RunAs
 }
 
 Set-Variable colemak -Option Constant -Value {0409:A0000409}
@@ -37,6 +36,5 @@ Write-Verbose "Disabling non-colemak inputs"
 $extra = $en.InputMethodTips | Where-Object { $_ -ne $colemak }
 $extra | ForEach-Object { $en.InputMethodTips.Remove($_) | Out-Null }
 Set-WinUserLanguageList $en -Force
-
 
 Write-Host "Colemak is the only keyboard layout" -ForegroundColor DarkCyan
