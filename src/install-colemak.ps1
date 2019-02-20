@@ -1,8 +1,6 @@
-Write-Host "Ensuring Colemak is installed and the only input" -ForegroundColor DarkCyan
+Write-Host "Ensuring Colemak is installed and the only layout" -ForegroundColor DarkCyan
 
-Set-Variable colemak -Option Constant -Value {0409:A0000409}
-
-if (((Get-WinUserLanguageList) | Select-Object -ExpandProperty InputMethodTips | Where-Object { $_ -EQ $colemak }).Count -NE 1)
+if((Get-WmiObject -Class Win32_Product | Where-Object Name -like "*Colemak*").Count -eq 0)
 {
     Write-Debug "Installing Colemak"
     Write-Verbose "Installing git-lfs and restoring zips"
@@ -24,9 +22,21 @@ if (((Get-WinUserLanguageList) | Select-Object -ExpandProperty InputMethodTips |
     Start-Process msiexec -ArgumentList "/i $msi /qn /norestart" -Wait -PassThru
 }
 
-if (((Get-WinUserLanguageList) | Select-Object -ExpandProperty InputMethodTips) -NE 1)
+Set-Variable colemak -Option Constant -Value {0409:A0000409}
+
+# assume only english is enabled
+$en = (Get-WinUserLanguageList)[0];
+
+if ($en.InputMethodTips -notcontains $colemak)
 {
-    Write-Debug "Disable Non-Colemak Inputs"
+    Write-Verbose "Adding colemak to InputMethodTips"
+    $en.InputMethodTips.Add($colemak)
 }
+
+Write-Verbose "Disabling non-colemak inputs"
+$extra = $en.InputMethodTips | Where-Object { $_ -ne $colemak }
+$extra | ForEach-Object { $en.InputMethodTips.Remove($_) | Out-Null }
+Set-WinUserLanguageList $en -Force
+
 
 Write-Host "Colemak is the only keyboard layout" -ForegroundColor DarkCyan
