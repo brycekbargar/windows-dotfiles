@@ -37,4 +37,4 @@ $extra = $en.InputMethodTips | Where-Object { $_ -ne $colemak }
 $extra | ForEach-Object { $en.InputMethodTips.Remove($_) | Out-Null }
 Set-WinUserLanguageList $en -Force
 
-Write-Host "Colemak is the only keyboard layout" -ForegroundColor DarkCyan
+Write-Host "Colemak is installed the only keyboard layout" -ForegroundColor DarkCyan
