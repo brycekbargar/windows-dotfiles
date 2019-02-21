@@ -4,10 +4,10 @@ if((Get-WmiObject -Class Win32_Product | Where-Object Name -like "*Colemak*").Co
 {
     Write-Debug "Installing Colemak"
     Write-Verbose "Installing git-lfs and restoring zips"
-    Start-Process scoop.cmd -ArgumentList "install git-lfs" -Wait -PassThru -NoNewWindow
-    Start-Process scoop.cmd -ArgumentList "update git-lfs" -Wait -PassThru -NoNewWindow
-    Start-Process git-lfs.exe -ArgumentList "install" -Wait -PassThru
-    Start-Process git-lfs.exe -ArgumentList "checkout" -Wait -PassThru
+    & scoop install git-lfs
+    & scoop update git-lfs
+    & git lfs install
+    & git lfs checkout
 
     Write-Verbose "Creating unzip directory"
     $lib = [System.IO.Path]::Combine($PSScriptRoot, "..", "lib")
