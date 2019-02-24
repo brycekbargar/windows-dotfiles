@@ -47,7 +47,7 @@ function prompt {
 
     $lastCommandText = (Get-History -Count 1).CommandLine
     $lastCommandColor = [ConsoleColor]::Red
-    if ($lastCommandText.Contains("`n") -or $lastCommandText.Length -gt $available) {
+    if ($null -eq $lastCommandText -or $lastCommandText.Contains("`n") -or $lastCommandText.Length -gt $available) {
         $lastCommandText = "..."
     }
     if ($lastCommandSuccess) {
