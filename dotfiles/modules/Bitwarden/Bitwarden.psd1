@@ -6,6 +6,7 @@
     PowerShellVersion = '5.0';
 
     FunctionsToExport = @(
-        'Unlock-Vault'
+        'Unlock-Vault',
+        'Add-Key'
     );
 }
