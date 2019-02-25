@@ -1,0 +1,18 @@
+{
+    "workbench.statusBar.feedback.visible": false,
+    "editor.fontFamily": "'Trebuchet MS'",
+    "editor.fontSize": 18,
+    "editor.renderWhitespace": "boundary",
+    "editor.codeLens": false,
+    "editor.copyWithSyntaxHighlighting": false,
+    "editor.detectIndentation": false,
+    "window.openFilesInNewWindow": "on",
+    "terminal.integrated.fontFamily": "Consolas",
+    "terminal.external.windowsExec": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "telemetry.enableTelemetry": false,
+    "git.enabled": false,
+    "vim.ignorecase": false,
+    "powershell.powerShellExePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "bracketPairColorizer.showHorizontalScopeLine": false,
+    "bracketPairColorizer.showVerticalScopeLine": false
+}
