@@ -8,9 +8,9 @@
     sorry = !git add -A && git rebase --continue
     checokut = checkout
 [color "status"]
-    added = green bold
+    added = white bold
     changed = yellow bold
-    untracked = white bold
+    untracked = green bold
 [color "diff"]
     new = green
     old = magenta
