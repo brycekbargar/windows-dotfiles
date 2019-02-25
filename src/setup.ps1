@@ -1,4 +1,17 @@
+param(
+    [Parameter(mandatory=$true)]
+    [ValidateSet('home', 'milyli')]
+    [String]$InstallEnv,
+
+    [Parameter(mandatory=$true)]
+    [ValidateSet('host', 'guest')]
+    [String]$InstallType
+)
+
 Write-Host "Starting Setup!" -ForegroundColor DarkGreen
+
+$env:InstallEnv = $InstallEnv
+$env:InstallType = $InstallType
 
 & scoop bucket add extras
 & scoop install sudo
