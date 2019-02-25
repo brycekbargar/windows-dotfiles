@@ -1,0 +1,16 @@
+[core]
+
+[push]
+    default = simple
+[alias]
+    todos = !git status && echo && git log
+    fuck = !git add -A && git commit --amend --no-edit
+    sorry = !git add -A && git rebase --continue
+    checokut = checkout
+[color "status"]
+    added = green
+    changed = yellow
+    untracked = white bold
+[color "diff"]
+    new = green
+    old = magenta
