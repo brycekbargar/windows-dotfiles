@@ -5,7 +5,6 @@ Set-PSReadlineOption -EditMode Vi
 
 Import-Module posh-git
 $GitPromptSettings.EnableWindowTitle = $null
-$GitPromptSettings.EnableFileStatus = $false
 
 function prompt {
     $lastCommandSuccess = $?
@@ -29,7 +28,7 @@ function prompt {
         $currentLocation = "~\"
     }
 
-    $git = Write-VcsStatus 6>&1
+    $git = (Write-VcsStatus 6>&1) -join ''
     $postCommandParts = @(
         [PSCustomObject]@{
             Text = $currentLocation;
