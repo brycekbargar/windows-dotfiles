@@ -15,7 +15,7 @@ Write-Debug $default
 Write-Verbose "Registering startup scheduled task"
 $action = New-ScheduledTaskAction -Execute $ahk -Argument $default
 $trigger = New-ScheduledTaskTrigger -AtLogon
-$principal = New-ScheduledTaskPrincipal -UserID "$(Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty UserName)" -RunLevel Highest
+$principal = New-ScheduledTaskPrincipal -UserID "$(Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty PrimaryOwnerName)" -RunLevel Highest
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopOnIdleEnd -DontStopIfGoingOnBatteries
 Register-ScheduledTask -TaskName "Autohotkey" -TaskPath "\dotfiles" -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Force
 
