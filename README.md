@@ -3,6 +3,9 @@
 ### Usage
 
 ```ps
+# In admin powershell
+Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
+
 Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
 scoop install git
 
