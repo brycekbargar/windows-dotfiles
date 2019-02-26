@@ -21,7 +21,7 @@ function Unlock-Vault {
     $bw = Resolve-Path (where.exe bw)
     $action = New-ScheduledTaskAction -Execute $bw -Argument "lock"
     $trigger = New-ScheduledTaskTrigger -At (Get-Date).AddMinutes(15) -Once
-    $principal = New-ScheduledTaskPrincipal -UserID "$(Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty UserName)"
+    $principal = New-ScheduledTaskPrincipal -UserID "$(Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty PrimaryOwnerName)"
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopOnIdleEnd -DontStopIfGoingOnBatteries
     Register-ScheduledTask -TaskName "Lock Vault" -TaskPath "\dotfiles" -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Force | Out-Null
 }
