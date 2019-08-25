@@ -6,7 +6,7 @@ Write-Verbose "Installing hyper"
 
 Write-Verbose "Linking hyper.js"
 $dotfile = [System.IO.Path]::Combine($PSScriptRoot, "..", "dotfiles", "hyper", ".hyper.js")
-$config = [System.IO.Path]::Combine($HOME, ".hyper.js")
+$config = [System.IO.Path]::Combine($HOME, "AppData", "Roaming", "Hyper", ".hyper.js")
 & sudo New-Item -Path $config -ItemType SymbolicLink -Value $dotfile -Force
 
 Write-Host "Hyper is installed and configured" -ForegroundColor DarkCyan
