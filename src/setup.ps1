@@ -17,6 +17,9 @@ $env:InstallType = $InstallType
 & scoop install sudo
 & scoop update sudo
 
+sudo Add-MpPreference -ExclusionPath 'C:\Users\bryce\scoop'
+sudo Add-MpPreference -ExclusionPath 'C:\ProgramData\scoop'
+
 $src = $PSScriptRoot
 
 & sudo Import-Module (Resolve-Path (Join-Path $src "install-autohotkey.ps1")) -Force
