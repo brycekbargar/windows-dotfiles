@@ -1,8 +1,13 @@
 Write-Host "Ensuring ssh is enabled and ssh-keys are dowloaded from bitwarden" -ForegroundColor DarkCyan
 
+Write-Verbose "Installing latest ssh-agent"
+& scoop install win32-openssh
+& scoop update win32-openssh
+sudo "$(scoop prefix win32-openssh)\install-sshd.ps1"
+
 Write-Verbose "Setting up windows ssh-agent"
 sudo Set-Service -Name ssh-agent -StartupType Manual
-[Environment]::SetEnvironmentVariable('GIT_SSH', (Resolve-Path (where.exe ssh)), 'USER')
+[Environment]::SetEnvironmentVariable('GIT_SSH', "$(scoop prefix win32-openssh)\ssh.exe", 'USER')
 
 Write-Verbose "Creating ~/.ssh directory"
 New-Item ~/.ssh -ItemType Directory -Force | Out-Null
