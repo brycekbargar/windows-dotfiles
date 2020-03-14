@@ -9,9 +9,9 @@ Write-Verbose "Creating context menu entry"
 
 Write-Verbose "Installing extensions"
 & code --install-extension vscodevim.vim
-& code --install-extension ms-vscode.PowerShell
 & code --install-extension dracula-theme.theme-dracula
 & code --install-extension CoenraadS.bracket-pair-colorizer
+& code --install-extension ms-mssql.mssql
 
 Write-Verbose "Linking configuration"
 $dotfile = [System.IO.Path]::Combine($PSScriptRoot, "..", "dotfiles", "vscode", "settings.json")
