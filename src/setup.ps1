@@ -13,15 +13,9 @@ Write-Host "Starting Setup!" -ForegroundColor DarkGreen
 $env:InstallEnv = $InstallEnv
 $env:InstallType = $InstallType
 
-& scoop bucket add extras
-& scoop install sudo
-& scoop update sudo
-
-sudo Add-MpPreference -ExclusionPath 'C:\Users\bryce\scoop'
-sudo Add-MpPreference -ExclusionPath 'C:\ProgramData\scoop'
-
 $src = $PSScriptRoot
 
+Import-Module (Resolve-Path (Join-Path $src "setup-scoop.ps1")) -Force
 & sudo Import-Module (Resolve-Path (Join-Path $src "install-autohotkey.ps1")) -Force
 Import-Module (Resolve-Path (Join-Path $src "install-colemak.ps1")) -Force
 Import-Module (Resolve-Path (Join-Path $src "install-bitwarden.ps1")) -Force
