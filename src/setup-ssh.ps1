@@ -19,7 +19,7 @@ $session = bw unlock --raw
     Select-Object -Property @{ name='itemid'; expression={ $_.id } } -ExpandProperty attachments |
     ForEach-Object {
         Write-Debug $_.fileName
-        (bw get attachment --session $session $_.id --output (Join-Path (Resolve-Path "~\.ssh\") $_.fileName) --itemid $_.itemid) | Out-Null
+        (bw get attachment --session $session $_.id --output (Join-Path (Resolve-Path "~\.ssh\") $_.fileName) --itemid $_.itemid)
     }
 bw lock
 
