@@ -123,6 +123,10 @@ module.exports = {
     // selection is present (`true` by default on Windows and disables the context menu feature)
     // quickEdit: true,
 
+    // Whether to use the WebGL renderer. Set it to false to use canvas-based
+    // rendering (slower, but supports transparent backgrounds)
+    webGLRenderer: true,
+
     // URL to custom bell
     // bellSoundURL: 'http://example.com/bell.mp3',
 
