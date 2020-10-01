@@ -26,4 +26,3 @@ Import-Module (Resolve-Path (Join-Path $src "setup-ssh.ps1")) -Force
 Import-Module (Resolve-Path (Join-Path $src "setup-modules.ps1")) -Force
 Import-Module (Resolve-Path (Join-Path $src "setup-git.ps1")) -Force
 Import-Module (Resolve-Path (Join-Path $src "setup-hyper-v.ps1")) -Force
-Import-Module (Resolve-Path (Join-Path $src "install-programs.ps1")) -Force
