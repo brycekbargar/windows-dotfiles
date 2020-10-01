@@ -1,6 +1,6 @@
 #Requires -RunAsAdministrator
 
-Write-Host "Ensure autohotkey is installed and runs at startup" -ForegroundColor DarkCyan
+Write-Host "Ensuring autohotkey is installed and runs at startup" -ForegroundColor DarkCyan
 
 Write-Verbose "Installing autohotkey"
 & scoop install autohotkey

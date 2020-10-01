@@ -31,7 +31,7 @@
             "fontSize": 14,
             "fontWeight": "bold",
             "useAcrylic": true,
-            "acrylicOpacity": 0.8
+            "acrylicOpacity": 0.75
         },
         "list":
         [

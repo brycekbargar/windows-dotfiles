@@ -1,4 +1,4 @@
-Write-Host "Ensure scoop is setup and happy" -ForegroundColor DarkCyan
+Write-Host "Ensuring scoop is setup and happy" -ForegroundColor DarkCyan
 
 Write-Verbose "Installing latest scoop and related tools"
 & scoop bucket add extras

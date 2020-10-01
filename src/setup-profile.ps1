@@ -1,4 +1,4 @@
-Write-Host "Ensure posh-git is installed and profile is linked" -ForegroundColor DarkCyan
+Write-Host "Ensuring posh-git is installed and profile is linked" -ForegroundColor DarkCyan
 
 Write-Verbose "Installing posh-git"
 & scoop install posh-git

@@ -1,4 +1,4 @@
-Write-Host "Ensure gitconfig is linked and user is set" -ForegroundColor DarkCyan
+Write-Host "Ensuring gitconfig is linked" -ForegroundColor DarkCyan
 
 Write-Verbose "Linking gitconfig"
 $dotfile = [System.IO.Path]::Combine($PSScriptRoot, "..", "dotfiles", "git", ".gitconfig")
@@ -14,4 +14,4 @@ if (-not $currentPath.Contains("dotfiles\git")) {
     [Environment]::SetEnvironmentVariable('PATH', "$currentPath;$git" ,'USER')
 }
 
-Write-Host "Gitconfig is linked and user is set" -ForegroundColor DarkCyan
+Write-Host "Gitconfig is linked" -ForegroundColor DarkCyan
