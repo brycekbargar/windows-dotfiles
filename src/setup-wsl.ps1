@@ -12,5 +12,36 @@ if (-not (Test-Path $wsl_update_x64)) {
     Write-Verbose "Downloading kernel update to be run later"
     Invoke-WebRequest -uri "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" -OutFile $wsl_update_x64
 }
+$wsl_update_x64 = "$HOME\Downloads\wsl_update_x64.msi"
+
+Do {
+Write-Verbose "Checking for the latest version of Debian"
+$request = [System.Net.WebRequest]::Create('https://aka.ms/wsl-debian-gnulinux')
+$request.AllowAutoRedirect=$false
+$response=$request.GetResponse()
+If ($response.StatusCode -eq "MovedPermanently")
+{
+    $actualDebianUrl = $response.GetResponseHeader("Location")
+    if(([System.Uri]$actualDebianUrl).AbsolutePath -match '/(.*_x64)__' -and $Matches.Count -eq 2)
+    {
+        $DebianGNULinux_Version_x64 = "$HOME\Downloads\$($Matches.1).zip"
+        if (-not (Test-Path $DebianGNULinux_Version_x64)) {
+            Write-Verbose "Downloading latest version of Debian"
+            Invoke-WebRequest -uri $actualDebianUrl -OutFile $DebianGNULinux_Version_x64
+
+            $wsl_install_location = "$HOMEDRIVE\wsl\$($Matches.1)"
+            if (-not (Test-Path $wsl_install_location)) {
+                Write-Verbose "Extracting latest version of Debian"
+                New-Item $wsl_install_location -Type Directory
+                Expand-Archive -Path $DebianGNULinux_Version_x64 -DestinationPath $wsl_install_location
+
+                break
+            }
+        }
+    }
+
+    Write-Warning "Didn't download/extract the latest of Debian, either the remote is changed or it is already dowloaded/extracted"
+}
+} While ($false)
 
 Write-Host "Windows subsystem for linux is installed and ready to be configured" -ForegroundColor DarkCyan
