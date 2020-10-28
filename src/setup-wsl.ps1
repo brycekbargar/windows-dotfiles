@@ -16,12 +16,13 @@ $wsl_update_x64 = "$HOME\Downloads\wsl_update_x64.msi"
 
 Do {
 Write-Verbose "Checking for the latest version of Debian"
-$request = [System.Net.WebRequest]::Create('https://aka.ms/wsl-debian-gnulinux')
-$request.AllowAutoRedirect=$false
-$response=$request.GetResponse()
-If ($response.StatusCode -eq "MovedPermanently")
+$response = Invoke-WebRequest 'https://aka.ms/wsl-debian-gnulinux' `
+    -MaximumRedirection 0 `
+    -SkipHttpErrorCheck `
+    -ErrorAction Ignore
+If ($response.StatusCode -eq 301)
 {
-    $actualDebianUrl = $response.GetResponseHeader("Location")
+    $actualDebianUrl = $response.Headers.Location[0]
     if(([System.Uri]$actualDebianUrl).AbsolutePath -match '/(.*_x64)__' -and $Matches.Count -eq 2)
     {
         $DebianGNULinux_Version_x64 = "$HOME\Downloads\$($Matches.1).zip"

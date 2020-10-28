@@ -9,7 +9,9 @@ Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
 # In regular powershell
 Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
 scoop install git
+scoop install pwsh
 
+# In powershelll 7
 New-Item ~\_src -ItemType Directory
 Set-Location ~\_src
 git clone https://github.com/brycekbargar/windows-dotfiles.git

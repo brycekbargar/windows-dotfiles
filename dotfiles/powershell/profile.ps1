@@ -1,7 +1,12 @@
-$Host.UI.RawUI.BackgroundColor = [ConsoleColor]::Black
-$Host.UI.RawUI.ForegroundColor = [ConsoleColor]::Gray
-
 Set-PSReadlineOption -EditMode Vi
+function OnViModeChange {
+    if ($args[0] -eq 'Command') {
+        Write-Host -NoNewLine "`e[1 q"
+    } else {
+        Write-Host -NoNewLine "`e[5 q"
+    }
+}
+Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler $Function:OnViModeChange
 
 Import-Module posh-git
 $GitPromptSettings.EnableWindowTitle = $null
@@ -11,7 +16,7 @@ function prompt {
 
     $parts = @(
         [PSCustomObject]@{
-            Text = $env:USERNAME;
+            Text = "$env:USERDomain\$env:USERNAME";
             Color = [ConsoleColor]::Green
         },
         [PSCustomObject]@{
@@ -29,37 +34,15 @@ function prompt {
     }
 
     $git = (Write-VcsStatus 6>&1) -join ''
-    $postCommandParts = @(
+    $parts += @(
         [PSCustomObject]@{
-            Text = $currentLocation;
+            Text = "$currentLocation\";
             Color = [ConsoleColor]::Cyan
         },
         [PSCustomObject]@{
             Text = $git;
             Color = [ConsoleColor]::Yellow
         })
-
-    $available = $Host.UI.RawUI.WindowSize.Width - ($Host.UI.RawUI.WindowSize.Width * .2) - 
-        (($parts + $postCommandParts) | 
-            Select-Object -Property @{ Name = "Length"; Expression = {$_.Text.Length}} |
-            Measure-Object -Sum Length).Sum
-
-    $lastCommandText = (Get-History -Count 1).CommandLine
-    $lastCommandColor = [ConsoleColor]::Red
-    if ($null -eq $lastCommandText -or $lastCommandText.Contains("`n") -or $lastCommandText.Length -gt $available) {
-        $lastCommandText = "..."
-    }
-    if ($lastCommandSuccess) {
-        $lastCommandColor = [ConsoleColor]::DarkMagenta 
-    }
-    
-    $parts += 
-        [PSCustomObject]@{
-            Text = $lastCommandText;
-            Color = $lastCommandColor
-        }
-    
-    $parts += $postCommandParts
 
     $promptChar = '$'
     $promptColor = [ConsoleColor]::DarkGray

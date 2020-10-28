@@ -1,6 +1,6 @@
 Write-Host "Ensuring Colemak is installed and the only layout" -ForegroundColor DarkCyan
 
-if((Get-WmiObject -Class Win32_Product | Where-Object Name -like "*Colemak*").Count -eq 0)
+if((Get-CimInstance -Class Win32_Product | Where-Object Name -like "*Colemak*").Count -eq 0)
 {
     Write-Debug "Installing Colemak"
     Write-Verbose "Installing git-lfs and restoring zips"
