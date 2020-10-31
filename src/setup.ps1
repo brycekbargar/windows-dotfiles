@@ -13,3 +13,4 @@ Import-Module (Resolve-Path (Join-Path $src "setup-wsl.ps1")) -Force
 Import-Module (Resolve-Path (Join-Path $src "setup-ssh.ps1")) -Force
 Import-Module (Resolve-Path (Join-Path $src "setup-modules.ps1")) -Force
 Import-Module (Resolve-Path (Join-Path $src "setup-git.ps1")) -Force
+Import-Module (Resolve-Path (Join-Path $src "install-vim.ps1")) -Force
