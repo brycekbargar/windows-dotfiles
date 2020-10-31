@@ -18,4 +18,7 @@ $dotfile = [System.IO.Path]::Combine($PSScriptRoot, "..", "dotfiles", "vscode", 
 $config = [System.IO.Path]::Combine("$env:APPDATA", "Code", "User", "settings.json")
 & sudo New-Item -Path $config -ItemType SymbolicLink -Value $dotfile -Force
 
+& sudo scoop install Cascadia-Code 
+& sudo scoop update Cascadia-Code 
+
 Write-Host "Vscode is installed and configured" -ForegroundColor DarkCyan

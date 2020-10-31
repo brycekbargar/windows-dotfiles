@@ -1,6 +1,6 @@
 {
     "workbench.statusBar.feedback.visible": false,
-    "editor.fontFamily": "'Trebuchet MS'",
+    "editor.fontFamily": "'Cascadia Code'",
     "editor.fontSize": 18,
     "editor.renderWhitespace": "boundary",
     "editor.codeLens": false,
@@ -15,5 +15,6 @@
     "powershell.powerShellExePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
     "bracketPairColorizer.showHorizontalScopeLine": false,
     "bracketPairColorizer.showVerticalScopeLine": false,
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "editor.fontLigatures": true
 }

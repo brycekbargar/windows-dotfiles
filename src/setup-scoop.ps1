@@ -2,6 +2,7 @@ Write-Host "Ensuring scoop is setup and happy" -ForegroundColor DarkCyan
 
 Write-Verbose "Installing latest scoop and related tools"
 & scoop bucket add extras
+& scoop bucket add nerd-fonts
 & scoop update
 & scoop install 7zip
 & scoop update 7zip
