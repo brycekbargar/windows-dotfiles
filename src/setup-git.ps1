@@ -14,4 +14,7 @@ if (-not $currentPath.Contains("dotfiles\git")) {
     [Environment]::SetEnvironmentVariable('PATH', "$currentPath;$git" ,'USER')
 }
 
+git config --local --add user.email "brycekbargar@gmail.com"
+git config --local --add user.name "bryce"
+
 Write-Host "Gitconfig is linked" -ForegroundColor DarkCyan

@@ -23,4 +23,6 @@ $session = bw unlock --raw
     }
 bw lock
 
+git remote set-url origin git@github.com:brycekbargar/windows-dotfiles.git
+
 Write-Host "Ssh is enabled and ssh-keys are dowloaded from bitwarden" -ForegroundColor DarkCyan
