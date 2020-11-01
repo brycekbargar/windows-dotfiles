@@ -36,6 +36,8 @@ If ($response.StatusCode -eq 301)
                 New-Item $wsl_install_location -Type Directory
                 Expand-Archive -Path $DebianGNULinux_Version_x64 -DestinationPath $wsl_install_location
 
+
+                & sudo New-Item -Path "$HOMEDRIVE\wsl\Debian"  -ItemType SymbolicLink -Value $wsl_install_location -Force
                 break
             }
         }

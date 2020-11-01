@@ -8,6 +8,8 @@ function OnViModeChange {
 }
 Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler $Function:OnViModeChange
 
+Set-Variable 'WSLHOME' "C:\wsl\Debian\rootfs\home\bryce\"
+
 Import-Module posh-git
 $GitPromptSettings.EnableWindowTitle = $null
 
