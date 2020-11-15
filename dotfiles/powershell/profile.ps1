@@ -1,3 +1,4 @@
+Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Vi
 function OnViModeChange {
     if ($args[0] -eq 'Command') {
@@ -13,7 +14,7 @@ Set-Variable 'WSLHOME' "C:\wsl\Debian\rootfs\home\bryce\"
 Set-Variable 'WSLSRC' "C:\wsl\Debian\rootfs\home\bryce\_src"
 
 Import-Module posh-git
-$GitPromptSettings.EnableWindowTitle = $null
+$GitPromptSettings.WindowTitle = $null
 
 function prompt {
     $lastCommandSuccess = $?

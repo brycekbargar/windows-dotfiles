@@ -1,8 +1,7 @@
 Write-Host "Ensuring posh-git is installed and profile is linked" -ForegroundColor DarkCyan
 
 Write-Verbose "Installing posh-git"
-& scoop install posh-git
-& scoop update posh-git
+Install-Module posh-git -AllowPrerelease -Force
 
 Write-Verbose "Linking profile"
 $dotfile = [System.IO.Path]::Combine($PSScriptRoot, "..", "dotfiles", "powershell", "profile.ps1")

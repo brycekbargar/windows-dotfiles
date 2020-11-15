@@ -11,4 +11,7 @@ $dotfile = [System.IO.Path]::Combine($PSScriptRoot, "..", "dotfiles", "windows-t
 $config = [System.IO.Path]::Combine("$env:LOCALAPPDATA", "Microsoft", "Windows Terminal", "settings.json")
 & sudo New-Item -Path "$config" -ItemType SymbolicLink -Value "$dotfile" -Force
 
+Write-Verbose "Installing PSReadLine"
+Install-Module PSReadLine -AllowPrerelease -Force
+
 Write-Host "Windows terminal is installed and configured" -ForegroundColor DarkCyan
