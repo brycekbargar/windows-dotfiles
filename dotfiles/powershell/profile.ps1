@@ -18,39 +18,46 @@ $GitPromptSettings.WindowTitle = $null
 
 function prompt {
     $lastCommandSuccess = $?
+    $promptColor = [ConsoleColor]::Green
+    if(-Not $lastCommandSuccess) {
+        $promptColor = [ConsoleColor]::Magenta
+    }
 
     $parts = @(
         [PSCustomObject]@{
-            Text = "$env:USERDomain\$env:USERNAME";
-            Color = [ConsoleColor]::Green
-        },
-        [PSCustomObject]@{
-            Text = "@";
-            Color = [ConsoleColor]::Magenta
-        },
-        [PSCustomObject]@{
-            Text = $env:COMPUTERNAME
-            Color = [ConsoleColor]::Green
+            Text = "⚧ ";
+            Color = $promptColor
         })
+    
+    $gitStatus = Get-GitStatus
+    if(-Not ($gitStatus -Eq $null)) {
+        $promptColor = [ConsoleColor]::Green
+        if( $gitStatus.HasWorking -or 
+            $gitStatus.HasUntracked -or 
+            $gitStatus.HasIndex) {
+
+            $promptColor = [ConsoleColor]::Magenta
+        }
+
+        $parts += 
+            [PSCustomObject]@{
+                Text = $gitStatus.Branch + " ";
+                Color = $promptColor
+            }
+    }
 
     $currentLocation = ($ExecutionContext.SessionState.Path.CurrentLocation).Path.Replace($HOME, '~')
     if($currentLocation -eq "~") {
         $currentLocation = "~\"
     }
 
-    $git = (Write-VcsStatus 6>&1) -join ''
-    $parts += @(
+    $parts +=
         [PSCustomObject]@{
             Text = "$currentLocation\";
-            Color = [ConsoleColor]::Cyan
-        },
-        [PSCustomObject]@{
-            Text = $git;
-            Color = [ConsoleColor]::Yellow
-        })
+            Color = [ConsoleColor]::DarkGray
+        }
 
-    $promptChar = '$'
-    $promptColor = [ConsoleColor]::DarkGray
+    $promptChar = '🦖'
     $user = [Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())
     if ($user.IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
         $promptChar = '#'
@@ -59,13 +66,13 @@ function prompt {
     
     $parts += 
         [PSCustomObject]@{
-            Text = "`r`n$promptChar>";
+            Text = "`r`n$promptChar ";
             Color = $promptColor
         }
     
     $parts | Foreach-Object {
         $Host.UI.RawUI.ForegroundColor = $_.Color
-        $Host.UI.Write("$($_.Text) ")
+        $Host.UI.Write("$($_.Text)")
     }
 
     $host.UI.RawUI.ForegroundColor = [ConsoleColor]::Gray
