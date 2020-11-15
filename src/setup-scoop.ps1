@@ -20,4 +20,7 @@ Write-Verbose "Windows Defender may slow down or disrupt installs with realtime 
 Write-Verbose "LongPaths support is not enabled."
 & sudo Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
 
+Write-Verbose "Cleaning up previous app version"
+& scoop cleanup *
+
 Write-Host "Scoop is setup and happy" -ForegroundColor DarkCyan
