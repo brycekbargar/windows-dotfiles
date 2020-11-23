@@ -9,10 +9,6 @@ function OnViModeChange {
 }
 Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler $Function:OnViModeChange
 
-Set-Variable 'WSLROOT' "C:\wsl\Debian\rootfs\"
-Set-Variable 'WSLHOME' "C:\wsl\Debian\rootfs\home\bryce\"
-Set-Variable 'WSLSRC' "C:\wsl\Debian\rootfs\home\bryce\_src"
-
 Import-Module posh-git
 $GitPromptSettings.WindowTitle = $null
 
