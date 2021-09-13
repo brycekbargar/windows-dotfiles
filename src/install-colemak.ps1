@@ -1,4 +1,4 @@
-Write-Host "Ensuring Colemak is installed and the only layout" -ForegroundColor DarkCyan
+Write-Host "Ensuring Colemak is installed" -ForegroundColor DarkCyan
 
 if((Get-CimInstance -Class Win32_Product | Where-Object Name -like "*Colemak*").Count -eq 0)
 {
@@ -21,20 +21,4 @@ if((Get-CimInstance -Class Win32_Product | Where-Object Name -like "*Colemak*").
     Start-Process msiexec.exe -ArgumentList "/package $msi /qn" -Wait -PassThru -Verb RunAs
 }
 
-Set-Variable colemak -Option Constant -Value {0409:A0000409}
-
-# assume only english is enabled
-$en = (Get-WinUserLanguageList)[0];
-
-if ($en.InputMethodTips -notcontains $colemak)
-{
-    Write-Verbose "Adding colemak to InputMethodTips"
-    $en.InputMethodTips.Add($colemak)
-}
-
-Write-Verbose "Disabling non-colemak inputs"
-$extra = $en.InputMethodTips | Where-Object { $_ -ne $colemak }
-$extra | ForEach-Object { $en.InputMethodTips.Remove($_) | Out-Null }
-Set-WinUserLanguageList $en -Force
-
-Write-Host "Colemak is installed the only keyboard layout" -ForegroundColor DarkCyan
+Write-Host "Colemak is installed" -ForegroundColor DarkCyan
